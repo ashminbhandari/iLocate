@@ -2,26 +2,28 @@ $(document).ready ( function() {
     $("#pills-update-tab").click(function(){
         $("#contactsTable").find("tr:gt(0)").remove();
         jQuery.get( "contacts", function( contacts ) {
-            contacts.forEach(contact => $('#contactsTable').append('<tr class="bg-secondary">' +
-                '<td>' + contact._id + '</td>' +
-                '<td>' + contact.fname + '</td>' +
-                '<td>' + contact.lname + '</td>' +
-                '<td>' + contact.street + '</td>' +
-                '<td>' + contact.city + '</td>' +
-                '<td>' + contact.state + '</td>' +
-                '<td>' + contact.zip + '</td>' +
-                '<td>' + contact.phone + '</td>' +
-                '<td>' + contact.email + '</td>' +
-                '<td>' + contact.salutation + '</td>' +
-                '<td>' + contact.contactByMail + '</td>' +
-                '<td>' + contact.contactByPhone + '</td>' +
-                '<td>' + contact.contactByEmail + '</td>' +
-                '<td>' + contact.latitude + '</td>' +
-                '<td>' + contact.longitude + '</td>' +
-                '<td><button type="button" class="btn btn-secondary" id="editButton" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></button>' +
-                '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mapModal" id="showMapButton"><i class="fa fa-map-marker"></i></button>' +
-                '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal" id="deleteContactButton"><i class="fa fa-trash"></i></button></td>' +
-                '</tr>'));
+            $.each(contacts, function (index, contact) {
+                $('#contactsTable').append('<tr class="bg-secondary">' +
+                    '<td>' + contact._id + '</td>' +
+                    '<td>' + contact.fname + '</td>' +
+                    '<td>' + contact.lname + '</td>' +
+                    '<td>' + contact.street + '</td>' +
+                    '<td>' + contact.city + '</td>' +
+                    '<td>' + contact.state + '</td>' +
+                    '<td>' + contact.zip + '</td>' +
+                    '<td>' + contact.phone + '</td>' +
+                    '<td>' + contact.email + '</td>' +
+                    '<td>' + contact.salutation + '</td>' +
+                    '<td>' + contact.contactByMail + '</td>' +
+                    '<td>' + contact.contactByPhone + '</td>' +
+                    '<td>' + contact.contactByEmail + '</td>' +
+                    '<td>' + contact.latitude + '</td>' +
+                    '<td>' + contact.longitude + '</td>' +
+                    '<td><button type="button" class="btn btn-secondary" id="editButton" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></button>' +
+                    '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mapModal" id="showMapButton"><i class="fa fa-map-marker"></i></button>' +
+                    '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal" id="deleteContactButton"><i class="fa fa-trash"></i></button></td>' +
+                    '</tr>')
+            });
         });
     });
 
@@ -178,27 +180,28 @@ $(document).ready ( function() {
             data: {query: $('#fsearchQuery').val()},
             success: function(data) {
                 $("#contactsTable").find("tr:gt(0)").remove();
-                console.log(data);
-                data.forEach(contact => $('#contactsTable').append('<tr class="bg-secondary">' +
-                    '<td>' + contact._id + '</td>' +
-                    '<td>' + contact.fname + '</td>' +
-                    '<td>' + contact.lname + '</td>' +
-                    '<td>' + contact.street + '</td>' +
-                    '<td>' + contact.city + '</td>' +
-                    '<td>' + contact.state + '</td>' +
-                    '<td>' + contact.zip + '</td>' +
-                    '<td>' + contact.phone + '</td>' +
-                    '<td>' + contact.email + '</td>' +
-                    '<td>' + contact.salutation + '</td>' +
-                    '<td>' + contact.contactByMail + '</td>' +
-                    '<td>' + contact.contactByPhone + '</td>' +
-                    '<td>' + contact.contactByEmail + '</td>' +
-                    '<td>' + contact.latitude + '</td>' +
-                    '<td>' + contact.longitude + '</td>' +
-                    '<td><button type="button" class="btn btn-secondary" id="editButton" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></button>' +
-                    '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mapModal" id="showMapButton"><i class="fa fa-map-marker"></i></button>' +
-                    '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal" id="deleteContactButton"><i class="fa fa-trash"></i></button></td>' +
-                    '</tr>'));
+                $.each(data, function (index, contact) {
+                    $('#contactsTable').append('<tr class="bg-secondary">' +
+                        '<td>' + contact._id + '</td>' +
+                        '<td>' + contact.fname + '</td>' +
+                        '<td>' + contact.lname + '</td>' +
+                        '<td>' + contact.street + '</td>' +
+                        '<td>' + contact.city + '</td>' +
+                        '<td>' + contact.state + '</td>' +
+                        '<td>' + contact.zip + '</td>' +
+                        '<td>' + contact.phone + '</td>' +
+                        '<td>' + contact.email + '</td>' +
+                        '<td>' + contact.salutation + '</td>' +
+                        '<td>' + contact.contactByMail + '</td>' +
+                        '<td>' + contact.contactByPhone + '</td>' +
+                        '<td>' + contact.contactByEmail + '</td>' +
+                        '<td>' + contact.latitude + '</td>' +
+                        '<td>' + contact.longitude + '</td>' +
+                        '<td><button type="button" class="btn btn-secondary" id="editButton" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></button>' +
+                        '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#mapModal" id="showMapButton"><i class="fa fa-map-marker"></i></button>' +
+                        '&nbsp&nbsp&nbsp<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal" id="deleteContactButton"><i class="fa fa-trash"></i></button></td>' +
+                        '</tr>')
+                });
             }
         })
     });
