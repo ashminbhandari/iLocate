@@ -1,0 +1,26 @@
+{
+  "name": "ilocate",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-session": "^1.17.0",
+    "geocoder": "^0.2.3",
+    "http-errors": "~1.6.3",
+    "mapbox-geocoding": "^0.1.5",
+    "mongodb": "^3.4.0",
+    "mongoose": "^5.8.1",
+    "morgan": "~1.9.1",
+    "node-geocoder": "^3.25.0",
+    "node-open-geocoder": "^4.0.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  }
+}

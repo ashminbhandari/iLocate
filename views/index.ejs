@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--jQuery!-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!--Font-awesome CDN-->
+  <script src="https://use.fontawesome.com/f74e6a935d.js"></script>
+  <!--AJAX client-side JavaScript!--->
+  <script type="text/javascript" src="/javascripts/ajax.js"></script>
+
+  <!--Leaflet includes!-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+          integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+          crossorigin=""></script>
+
+
+  <title>iLocate</title>
+</head>
+<body>
+
+<!---Using Bootstrap navigation pills to created tabbed contacts for each page --->
+<div class="jumbotron jumbotron-fluid bg-info" id="iLocateJumbotron">
+  <div class="container">
+    <h1 class="display-4" id="jumbotronHeading">iLocate</h1>
+    <p class="lead" id="jumbotronDesc">Create, update and mark contact locations</p>
+  </div>
+</div>
+<ul class="nav nav-pills mb-3 nav-fill bg-dark" id="pills-tab" role="tablist" aria-orientation="vertical">
+  <li class="nav-item">
+    <a class="nav-link active text-white" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="false">Credentials</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-white" id="pills-create-tab" data-toggle="pill" href="#pills-create" role="tab" aria-controls="pills-create" aria-selected="true">Create</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-white" id="pills-update-tab" data-toggle="pill" href="#pills-update" role="tab" aria-controls="pills-update" aria-selected="false">Update</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="pills-tabContent">
+  <!----Login page---->
+  <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+    <div class="card bg-dark text-white">
+      <div class="card-body">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+          </div>
+          <button class = "btn btn-success" type="button" id="loginButton" class="btn btn-primary">Login</button>
+        </form>
+        <button hidden class="btn btn-danger" type="button" id="logoutButton" class="btn btn-primary" style="display: none;">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!----Create a contact page---->
+  <div class="tab-pane fade" id="pills-create" role="tabpanel" aria-labelledby="pills-create-tab">
+    <div class="card bg-dark text-white">
+      <div class="card-body">
+        <form id="createForm">
+          <div class="row">
+            <div class="col col-auto">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="salutation" id="radio1" value="Mr.">
+                <label class="form-check-label" for="radio1">Mr.</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="salutation" id="radio2" value="Mrs.">
+                <label class="form-check-label" for="radio2">Mrs.</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="salutation" id="radio3" value="Ms." >
+                <label class="form-check-label" for="radio3">Ms.</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="salutation" id="radio4" value="Dr." >
+                <label class="form-check-label" for="radio3">Dr.</label>
+              </div>
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row">
+            <label for="fname" class="col-auto col-form-label">First Name: </label>
+            <div class="col col-md-4">
+              <input type="text" class="form-control" id="fname" name="fname" required autofocus>
+            </div>
+            <label for="lname" class="col-auto col-form-label">Last Name: </label>
+            <div class="col col-md-4">
+              <input type="text" class="form-control" id="lname" name ="lname" required>
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row">
+            <label for="street" class="col-auto col-form-label">Street: </label>
+            <div class="col col-md-4">
+              <input type="text" class="form-control" id="street" name="street">
+            </div>
+            <label for="city" class="col-auto col-form-label">City: </label>
+            <div class="col col-md-4">
+              <input type="text" class="form-control" id="city" name="city">
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row">
+            <label for="state" class="col-auto col-form-label">State: </label>
+            <div class="form-group col-md-4">
+              <input type="text" class="form-control" id="state" name="state">
+            </div>
+            <label for="zip" class="col-auto col-form-label">Zip: </label>
+            <div class="form-group col-md-4">
+              <input type="text" class="form-control" id="zip" name="zip">
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row">
+            <label for="email" class="col-auto col-form-label">Email: </label>
+            <div class="col col-md-4">
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row">
+            <label for="phone" class="col-auto">Phone: </label>
+            <div class="col col-md-4">
+              <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row">
+            <label for="howToContact" class="col-auto">How may we contact you?: </label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="contactByMail" value="True">
+              <label class="form-check-label" for="inlineCheckbox2">Mail</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="contactByPhone" value="True">
+              <label class="form-check-label" for="inlineCheckbox1">Phone</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="contactByEmail" value="True">
+              <label class="form-check-label" for="inlineCheckbox3">Email</label>
+            </div>
+          </div>
+
+          <br/>
+
+          <button type="button" id="createButton" class="btn btn-warning"><i class ="fa fa-lg fa-address-book"> </i>           Add to database</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!----Update page---->
+  <div class="tab-pane fade" id="pills-update" role="tabpanel" aria-labelledby="pills-update-tab">
+    <div class="input-group mb-3">
+      <input type="text" id="fsearchQuery" class="form-control" placeholder="Search by first name" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-warning" id="fsearchButton" type="button"><i class="fa fa-search"> </i> First name or Last name</button>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="table table-dark table-striped" id="contactsTable">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Street</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Zip</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Salutation</th>
+        <th scope="col">Contact by Mail</th>
+        <th scope="col">Contact by Phone</th>
+        <th scope="col">Contact by Email</th>
+        <th scope="col">Latitude</th>
+        <th scope="col">Longitude</th>
+        <th scope="col">Operations</th>
+      </tr>
+      </thead>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for displaying the map-->
+<div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Location marker</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id='map' style='width: 750px; height: 800px;'></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal that asks for deletion confirmation-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete this contact?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="deletionConfirmation"></p>
+        <p id="mongoID"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="deleteConfirmationButton" class="btn btn-danger" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal that allows for updating information-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update contact</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-pane fade show active" id="pills-create" role="tabpanel" aria-labelledby="pills-create-tab">
+          <div class="card bg-dark text-white">
+            <div class="card-body">
+              <form action="update" id="updateForm" method="post">
+                <div class="row">
+                  <div class="col col-auto">
+                    <input type="hidden" id="contactID" name="contactID" value="">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="salutation" id="up_radio1" value="Mr.">
+                      <label class="form-check-label" for="radio1">Mr.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="salutation" id="up_radio2" value="Mrs.">
+                      <label class="form-check-label" for="radio2">Mrs.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="salutation" id="up_radio3" value="Ms." >
+                      <label class="form-check-label" for="radio3">Ms.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="salutation" id="up_radio4" value="Dr." >
+                      <label class="form-check-label" for="radio3">Dr.</label>
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                  <label for="fname" class="col-auto col-form-label">First Name: </label>
+                  <div class="col col-md-4">
+                    <input type="text" class="form-control" id="up_fname" name="fname" required autofocus>
+                  </div>
+                  <label for="lname" class="col-auto col-form-label">Last Name: </label>
+                  <div class="col col-md-4">
+                    <input type="text" class="form-control" id="up_lname" name ="lname" required>
+                  </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                  <label for="street" class="col-auto col-form-label">Street: </label>
+                  <div class="col col-md-4">
+                    <input type="text" class="form-control" id="up_street" name="street">
+                  </div>
+                  <label for="city" class="col-auto col-form-label">City: </label>
+                  <div class="col col-md-4">
+                    <input type="text" class="form-control" id="up_city" name="city">
+                  </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                  <label for="state" class="col-auto col-form-label">State: </label>
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control" id="up_state" name="state">
+                  </div>
+                  <label for="zip" class="col-auto col-form-label">Zip: </label>
+                  <div class="form-group col-md-4">
+                    <input type="text" class="form-control" id="up_zip" name="zip">
+                  </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                  <label for="email" class="col-auto col-form-label">Email: </label>
+                  <div class="col col-md-4">
+                    <input type="text" class="form-control" id="up_email" name="email">
+                  </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                  <label for="phone" class="col-auto">Phone: </label>
+                  <div class="col col-md-4">
+                    <input type="tel" class="form-control" id="up_phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                  </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                  <label for="howToContact" class="col-auto">How may we contact you?: </label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="up_contactByMail" name="contactByMail" value="True">
+                    <label class="form-check-label" for="inlineCheckbox2">Mail</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="up_contactByPhone" name="contactByPhone" value="True">
+                    <label class="form-check-label" for="inlineCheckbox1">Phone</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="up_contactByEmail" name="contactByEmail" value="True">
+                    <label class="form-check-label" for="inlineCheckbox3">Email</label>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="updateButton" class="btn btn-warning"><i class ="fa fa-lg fa-address-book"> </i>           Update</button>
+                </div>
+              </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
