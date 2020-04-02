@@ -18,7 +18,7 @@
     "mongodb": "^3.4.0",
     "mongoose": "^5.8.1",
     "morgan": "~1.9.1",
-    "node-geocoder": "^3.25.0",
+    "node-geocoder": "^3.27.0",
     "node-open-geocoder": "^4.0.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
