@@ -13,7 +13,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.0",
     "geocoder": "^0.2.3",
-    "http-errors": "~1.6.3",
+    "http-errors": "~1.7.3",
     "mapbox-geocoding": "^0.1.5",
     "mongodb": "^3.4.0",
     "mongoose": "^5.8.1",
