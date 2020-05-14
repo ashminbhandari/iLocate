@@ -16,7 +16,7 @@
     "http-errors": "~1.6.3",
     "mapbox-geocoding": "^0.1.5",
     "mongodb": "^3.4.0",
-    "mongoose": "^5.8.1",
+    "mongoose": "^5.9.14",
     "morgan": "~1.9.1",
     "node-geocoder": "^3.25.0",
     "node-open-geocoder": "^4.0.0",
